@@ -2,7 +2,10 @@ from django import forms
 
 from crm.models import Employee
 
+from django.contrib.auth.models import User
+
 class EmployeeForm(forms.ModelForm):
+
 
     class Meta:
 
@@ -21,3 +24,17 @@ class EmployeeForm(forms.ModelForm):
             "picture":forms.FileInput(attrs={"class":"form-control"}),
 
         }
+
+class SignupForm(forms.ModelForm):
+
+    class Meta:
+
+        model = User
+
+        fields = ["username","password","email"]
+
+class SigninForm(forms.Form):
+
+    username = forms.CharField()
+
+    password = forms.CharField(widget=forms.PasswordInput())

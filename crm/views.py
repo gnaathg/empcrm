@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect
 
 from django.views.generic import View
 
-from crm.forms import EmployeeForm
+from crm.forms import EmployeeForm,SignupForm,SigninForm
 
 from crm.models import Employee
+
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -104,3 +106,44 @@ class EmployeeUpdateView(View):
         
         return render(request,self.template_name,{'form':form_instance})
 
+class SignupView(View):
+
+    template_name = "register.html"
+
+    form_class = SignupForm
+
+    def get(self,request,*args,**kwargs):
+
+        form_instance = self.form_class()
+
+        return render(request,self.template_name,{"form":form_instance})
+    
+    def post(self,request,*args,**kwargs):
+
+        form_data = request.POST
+
+        form_instance = self.form_class(form_data)
+
+        if form_instance.is_valid():
+
+            data = form_instance.cleaned_data
+
+            User.objects.create_user(**data) # create_user - hashes the data
+
+            return redirect("register")
+        
+        return render(request,self.template_name,{"form":form_instance})
+
+class SigninView(View):
+
+    template_name = "signin.html"
+
+    form_class = SigninForm
+
+    def get(self,request,*args,**kwargs):
+
+        form_instance = self.form_class()
+
+        return render(request,self.template_name,{"form":form_instance})
+    
+    
