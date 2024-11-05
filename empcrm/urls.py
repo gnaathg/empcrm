@@ -28,5 +28,5 @@ urlpatterns = [
     path('employee/<int:id>/remove/',views.EmployeeDeleteView.as_view(),name="employee-delete"),
     path('employee/<int:id>/update',views.EmployeeUpdateView.as_view(),name="employee-update"),
     path('register/',views.SignupView.as_view(),name="register"),
-    path('signin/',views.SigninView.as_view(),name="login")
+    path('signin/',views.SigninView.as_view(),name="signin")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

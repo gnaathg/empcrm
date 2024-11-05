@@ -1,12 +1,16 @@
 {%extends 'base.html'%}
 
+{%load static%}
+
 {%block main_block%}
 
 <div class="container">
-    <h2>Add Employee</h2>
+    <img src="{%static 'image/addemp.png'}" alt="">
+    <h2 class="text-center my-2 fw-bold">Add Employee</h2>
     <form action="" method="post">
         {%csrf_token%}
-        {{form}}
+        {%for field in form%}
+        
         <div style="margin-top: 15px;">
             <button type="submit">Add</button>
         </div>
