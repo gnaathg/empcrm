@@ -28,5 +28,6 @@ urlpatterns = [
     path('employee/<int:id>/remove/',views.EmployeeDeleteView.as_view(),name="employee-delete"),
     path('employee/<int:id>/update',views.EmployeeUpdateView.as_view(),name="employee-update"),
     path('register/',views.SignupView.as_view(),name="register"),
-    path('signin/',views.SigninView.as_view(),name="signin")
+    path('signin/',views.SigninView.as_view(),name="signin"),
+    path('signout/',views.SignoutView.as_view(),name="signout")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

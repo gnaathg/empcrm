@@ -1,20 +1,22 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
-{%load static%}
+{% load static %}
 
-{%block main_block%}
-
+{% block main_block %}
 <div class="container">
-    <img src="{%static 'image/addemp.png'}" alt="">
+    <img src="{% static 'image/addemp.png' %}" alt="">
     <h2 class="text-center my-2 fw-bold">Add Employee</h2>
     <form action="" method="post">
-        {%csrf_token%}
-        {%for field in form%}
+        {% csrf_token %}
+        {% for field in form %}
+            <div style="margin-top: 15px;">
+                {{ field }}
+            </div>
+        {% endfor %}
         
         <div style="margin-top: 15px;">
             <button type="submit">Add</button>
         </div>
     </form>
 </div>
-
-{%endblock%}
+{% endblock %}

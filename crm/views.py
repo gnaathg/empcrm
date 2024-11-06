@@ -8,6 +8,8 @@ from crm.models import Employee
 
 from django.contrib.auth.models import User
 
+from django.contrib.auth import authenticate,login,logout
+
 # Create your views here.
 
 class EmployeeCreateView(View):
@@ -136,6 +138,7 @@ class SignupView(View):
 
 class SigninView(View):
 
+
     template_name = "signin.html"
 
     form_class = SigninForm
@@ -146,4 +149,34 @@ class SigninView(View):
 
         return render(request,self.template_name,{"form":form_instance})
     
-    
+    def post(self,request,*args,**kwargs):
+
+        form_data = request.POST
+
+        form_instance = self.form_class(form_data)
+
+        if form_instance.is_valid():
+
+            data = form_instance.cleaned_data
+
+            uname = data.get("username")
+
+            pwd = data.get("password")
+
+            user_object=authenticate(request,username=uname,password=pwd)
+
+            if user_object:
+
+                login(request,user_object)
+
+                return redirect("employee-list")
+            
+        return render(request,self.template_name,{"form":form_instance})
+
+class SignoutView(View):
+
+    def get(self,request,*args,**kwargs):
+
+        logout(request)
+
+        return redirect("signin")
