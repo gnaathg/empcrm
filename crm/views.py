@@ -10,7 +10,14 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate,login,logout
 
+from django.contrib import messages
+
+from crm.decorators import signin_required
+
+from django.utils.decorators import method_decorator
+
 # Create your views here.
+@method_decorator(signin_required,name="dispatch")
 
 class EmployeeCreateView(View):
 
@@ -34,9 +41,15 @@ class EmployeeCreateView(View):
 
             form_instance.save()
 
+            messages.success(request,"Employee added successfully.")
+
             return redirect("employee-list")
         
+        messages.error(request,"Couldn't complete the action!!!")
+        
         return render(request,self.template_name,{'form':form_instance})
+    
+@method_decorator(signin_required,name="dispatch")
 
 class EmployeeListView(View):
 
@@ -50,6 +63,8 @@ class EmployeeListView(View):
 
         return render(request,self.template_name,{'data':qs})
     
+@method_decorator(signin_required,name="dispatch")  
+
 class EmployeeDetailView(View):
 
     template_name = "employee_detail.html"
@@ -61,6 +76,8 @@ class EmployeeDetailView(View):
         qs = Employee.objects.get(id=id)
 
         return render(request,self.template_name,{"data":qs})
+    
+@method_decorator(signin_required,name="dispatch")
 
 class EmployeeDeleteView(View):
 
@@ -72,7 +89,11 @@ class EmployeeDeleteView(View):
 
         Employee.objects.get(id=id).delete()
 
+        messages.success(request,"Employee deleted.")
+
         return redirect("employee-list")
+    
+@method_decorator(signin_required,name="dispatch")
 
 class EmployeeUpdateView(View):
 
@@ -104,7 +125,11 @@ class EmployeeUpdateView(View):
 
             form_instance.save()
 
+            messages.success(request,"Employee update successfull.")
+
             return redirect("employee-list")
+        
+        messages.error(request,"Couldn't update Employee!!!!")
         
         return render(request,self.template_name,{'form':form_instance})
 
@@ -172,6 +197,8 @@ class SigninView(View):
                 return redirect("employee-list")
             
         return render(request,self.template_name,{"form":form_instance})
+    
+@method_decorator(signin_required,name="dispatch")
 
 class SignoutView(View):
 

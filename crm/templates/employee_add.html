@@ -6,16 +6,51 @@
 <div class="container">
     <img src="{% static 'image/addemp.png' %}" alt="">
     <h2 class="text-center my-2 fw-bold">Add Employee</h2>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
-            <div style="margin-top: 15px;">
-                {{ field }}
-            </div>
-        {% endfor %}
-        
+
         <div style="margin-top: 15px;">
-            <button type="submit">Add</button>
+            <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+            {{ form.name }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+            {{ form.email }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="{{ form.address.id_for_label }}" class="form-label">Address</label>
+            {{ form.address }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="{{ form.department.id_for_label }}" class="form-label">Department</label>
+            {{ form.department }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="{{ form.salary.id_for_label }}" class="form-label">Salary</label>
+            {{ form.salary }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="{{ form.date_of_join.id_for_label }}" class="form-label">Date of Joining</label>
+            {{ form.date_of_join }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="{{ form.gender.id_for_label }}" class="form-label">Gender</label>
+            {{ form.gender }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="{{ form.picture.id_for_label }}" class="form-label">Picture</label>
+            {{ form.picture }}
+        </div>
+
+        <div style="margin-top: 15px;">
+            <button type="submit" class="btn btn-primary">Add</button>
         </div>
     </form>
 </div>
